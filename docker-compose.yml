@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+    expressnode:
+        build: .
+        stdin_open: true
+        tty: true
+        expose:
+            - 80
+        ports:
+            - "80:80"
+        environment:
+            NETWORK_PORT: 80

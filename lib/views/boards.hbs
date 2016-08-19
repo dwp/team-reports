@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="page-header">
+    <h1>Welcome to the Innovation Radiator</h1>
+  </div>
+
+  <p class="lead">This is a bootstrap project for rapid experimentation on the Trello API using light-weight HTML interfaces.</p>
+
+  <ul>
+    {{#each boards as |board|}}
+    <li><a href="/board/{{ board.id }}">{{board.name}}</a></li>
+    {{/each}}
+  </ul>
+</div>

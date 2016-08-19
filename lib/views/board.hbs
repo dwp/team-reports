@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="page-header">
+    <h1>{{board.name}}</h1>
+  </div>
+
+  <p class="lead">{{board.desc}}</p>
+
+  <h2>Board Details <small><a href="/board/{{board.id}}/action">history</a></small></h2>
+
+  <ul>
+    {{#each lists as |list|}}
+    <li><h3><a href="/list/{{list.id}}">{{list.name}}
+      {{#if list.closed}}<span class="label label-default">Closed</span>{{/if}}</a></h3>
+      <ul class="cards">
+        {{#each list.cards as |card|}}
+        <li><h4><a href="/card/{{card.id}}">{{card.name}}
+              {{#if card.closed}}<span class="label">Closed</span>{{/if}}</a></h4>
+            <p>Last activity: {{card.dateLastActivity}}</p>
+            <pre><code>{{card.src}}</code></pre></li>
+        {{/each}}
+      </ul>
+    </li>
+    {{/each}}
+  </ul>
+</div>
