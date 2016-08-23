@@ -52,6 +52,7 @@ var port = normalizePort(process.env.NETWORK_PORT || '3000');
 app.set('port', port);
 
 app.locals.env = process.env;
+app.locals.config = require('../config.json');
 
 // create server for application
 var server = http.createServer(app);

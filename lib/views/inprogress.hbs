@@ -8,7 +8,7 @@
   <div class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading">
-      <h3 class="panel-title">There are <strong>{{cardsInProgress.length}}</strong> items currently being worked on in this period</h3>
+      <h3 class="panel-title">There are <strong>{{cardsInProgress.length}}</strong> items currently being worked on</h3>
     </div>
 
     <ul class="list-group">
@@ -25,32 +25,60 @@
     </ul>
   </div>
 
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+      <h3 class="panel-title">There were <strong>{{cardsDone.length}}</strong> items completed</h3>
+    </div>
+
+    <ul class="list-group">
+      {{#each cardsDone as |cardDone|}}
+      <li class="list-group-item">
+        <ul class="list-inline pull-right">
+          {{#each cardDone.labels as |labelDone|}}
+          <li><span class="label label-default" style="background-color:{{labelDone.color}}">{{labelDone.name}}</span></li>
+          {{/each}}
+        </ul>
+        <h4 class="list-group-item-heading">{{cardDone.name}}</h4>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+
   <div class="row">
-    <div class="col-sm-6">
-      <div class="panel panel-default">
+    <div class="col-xs-6">
+      <div class="panel panel-default" data-chart="pie" data-chart-height="240">
         <!-- Default panel contents -->
         <div class="panel-heading">
-          <h3 class="panel-title">Types of activities being worked on</h3>
+          <h3 class="panel-title">Spread of activities being worked on</h3>
+        </div>
+
+        <div class="panel-body">
+          <div class="chart-placeholder"></div>
         </div>
 
         <ul class="list-group">
-          {{#each cardsByLabel as |value key|}}
-          <li class="list-group-item"><span class="badge badge-default">{{value.length}}</span> {{key}}</li>
+          {{#each cardsByType as |value key|}}
+          <li class="list-group-item chart-data"><span class="badge badge-default chart-value">{{value.length}}</span> <span class="chart-label">{{key}}</span></li>
           {{/each}}
         </ul>
       </div>
     </div>
 
-    <div class="col-sm-6">
-      <div class="panel panel-default">
+    <div class="col-xs-6">
+      <div class="panel panel-default" data-chart="pie" data-chart-height="240">
         <!-- Default panel contents -->
         <div class="panel-heading">
-          <h3 class="panel-title">Topics being investigated in this period</h3>
+          <h3 class="panel-title">Spread of topics being investigated</h3>
+        </div>
+
+        <div class="panel-body">
+          <div class="chart-placeholder"></div>
         </div>
 
         <ul class="list-group">
-          {{#each cardsByLabel as |value key|}}
-          <li class="list-group-item"><span class="badge badge-default">{{value.length}}</span> {{key}}</li>
+          {{#each cardsByTopic as |value key|}}
+          <li class="list-group-item chart-data"><span class="badge badge-default chart-value">{{value.length}}</span> <span class="chart-label">{{key}}</span></li>
           {{/each}}
         </ul>
       </div>
@@ -60,7 +88,7 @@
   <div class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading">
-      <h3 class="panel-title">Length of time items will have been worked on in this period</h3>
+      <h3 class="panel-title">Length of time items were worked on for</h3>
     </div>
 
     <ul class="list-group">
@@ -73,12 +101,74 @@
   <div class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading">
-      <h3 class="panel-title">Age of items being worked on</h3>
+      <h3 class="panel-title">Age of items worked on</h3>
     </div>
 
     <ul class="list-group">
       {{#each cardsTimeInList as |time|}}
       <li class="list-group-item"><span class="badge badge-default">{{time.age}}</span> {{time.name}}</li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <h2>Future Innovation</h2>
+
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+      <h3 class="panel-title">There were <strong>{{cardsInitialIdeas.length}}</strong> new ideas</h3>
+    </div>
+
+    <ul class="list-group">
+      {{#each cardsInitialIdeas as |card|}}
+      <li class="list-group-item">
+        <ul class="list-inline pull-right">
+          {{#each card.labels as |label|}}
+          <li><span class="label label-default" style="background-color:{{label.color}}">{{label.name}}</span></li>
+          {{/each}}
+        </ul>
+        <h4 class="list-group-item-heading">{{card.name}}</h4>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+      <h3 class="panel-title">There are <strong>{{cardsResearchIdeas.length}}</strong> ideas currently being researched</h3>
+    </div>
+
+    <ul class="list-group">
+      {{#each cardsResearchIdeas as |card|}}
+      <li class="list-group-item">
+        <ul class="list-inline pull-right">
+          {{#each card.labels as |label|}}
+          <li><span class="label label-default" style="background-color:{{label.color}}">{{label.name}}</span></li>
+          {{/each}}
+        </ul>
+        <h4 class="list-group-item-heading">{{card.name}}</h4>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+      <h3 class="panel-title">There are <strong>{{cardsIdeasForConsideration.length}}</strong> ideas ready for consideration</h3>
+    </div>
+
+    <ul class="list-group">
+      {{#each cardsIdeasForConsideration as |card|}}
+      <li class="list-group-item">
+        <ul class="list-inline pull-right">
+          {{#each card.labels as |label|}}
+          <li><span class="label label-default" style="background-color:{{label.color}}">{{label.name}}</span></li>
+          {{/each}}
+        </ul>
+        <h4 class="list-group-item-heading">{{card.name}}</h4>
+      </li>
       {{/each}}
     </ul>
   </div>

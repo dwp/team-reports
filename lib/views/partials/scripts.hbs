@@ -1,2 +1,70 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.js"></script>
+<script>
+  function C3(element, options) {
+    this.$element  = $(element);
+    this.options   = $.extend({}, C3.DEFAULTS, options);
+  };
+
+  C3.VERSION  = '0.0.1';
+
+  C3.DEFAULTS = {
+  };
+
+  C3.prototype.render = function () {
+    var $el  = this.$element;
+    var h = $el.data('chart-height');
+    var type = $el.data('chart');
+    var $ph = $el.find('.chart-placeholder')[0];
+    var data = $el.find('.chart-data').get()
+                  .map(function(x) {
+                    return [
+                      $(x).find('.chart-label').html(),
+                      $(x).find('.chart-value').html() * 1
+                    ];
+                  });
+
+    var config = {
+      bindto: $ph,
+      size: {
+        height: h
+      },
+      data: {
+        columns: data,
+        type : type
+      }
+    };
+
+    c3.generate(config);
+  };
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this);
+      var data    = $this.data('="c3.chart');
+      var options = typeof option == 'object' && option;
+
+      if (!data) {
+        $this.data('c3.chart', (data = new C3(this, options)));
+      }
+
+      data.render();
+    });
+  }
+
+  var old = $.fn.chart;
+
+  $.fn.chart             = Plugin;
+  $.fn.chart.Constructor = C3;
+
+  $.fn.chart.noConflict = function () {
+    $.fn.chart = old;
+    return this;
+  };
+
+  $(window).load(function() {
+    $('[data-chart]').chart();
+  });
+</script>
